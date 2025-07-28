@@ -22,6 +22,17 @@ import Estudiante_asistir from './pages/Estudiante_asistir'
 import All_task from './pages/Admin_tareas'
 import Admin_tuto from './pages/Admin_tutorias'
 
+useEffect(() => {
+  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+  const admin = { nombre: 'Administrador', email: 'admin@uleam.edu.ec', password: 'admin123', rol: 'admin' };
+  if (!usuarios.some(u => u.email === admin.email)) {
+    usuarios.push(admin);
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+  }
+}, []);
+
+
+
 function AppContent() {
   const location = useLocation();
 
