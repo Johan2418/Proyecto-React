@@ -1,6 +1,25 @@
-
+import React, { useEffect } from 'react';
 
 function Main() {
+  useEffect(() => {
+    // Solo una vez al montar el componente
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+    const admin = {
+      nombre: 'Administrador',
+      email: 'admin@uleam.edu.ec',
+      password: 'admin123',
+      rol: 'admin',
+    };
+
+    const existeAdmin = usuarios.some(u => u.email === admin.email);
+    if (!existeAdmin) {
+      usuarios.push(admin);
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+      console.log('Administrador creado en localStorage');
+    }
+  }, []);
+
   const images = [
     "https://www.uleam.edu.ec/wp-content/uploads/2025/03/SLIDER-VINCULACION-2025.png",
     "https://www.uleam.edu.ec/wp-content/uploads/2025/06/SLIDER-ANIVERSARIO-AGENDA-1-2048x868.png",
@@ -35,6 +54,5 @@ function Main() {
   );
 }
 
-
-
 export default Main;
+
